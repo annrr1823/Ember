@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Uplink</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="scanlines" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="fx-flash" id="fx-flash" aria-hidden="true"></div>
+
+  <main class="terminal" id="app">
+    <!-- BOOT -->
+    <section class="stage stage--boot" id="stage-boot" data-stage="boot">
+      <div class="boot-leak" aria-hidden="true">
+        <span class="leak-line"></span>
+        <span class="leak-spark"></span>
+        <span class="leak-spark leak-spark--b"></span>
+      </div>
+      <p class="boot-status">carrier noise · open?</p>
+      <button class="ghost-btn boot-btn" id="btn-boot" type="button">answer</button>
+    </section>
+
+    <!-- INTRO / NAME -->
+    <section class="stage stage--hidden" id="stage-intro" data-stage="intro">
+      <header class="hud">
+        <span class="hud-tag">FREQ 4.07 · ENCRYPTED</span>
+        <span class="hud-tag hud-tag--warn" id="link-status">LINK UNSTABLE</span>
+      </header>
+      <div class="comm-log" id="intro-log"></div>
+      <div class="name-panel stage--hidden" id="name-panel">
+        <label class="name-label" for="player-name">IDENTIFY YOURSELF</label>
+        <div class="name-row">
+          <input
+            id="player-name"
+            class="name-input"
+            type="text"
+            maxlength="16"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="Enter your name"
+          />
+          <button class="primary-btn" id="btn-name" type="button">TRANSMIT</button>
+        </div>
+      </div>
+      <button class="primary-btn stage--hidden" id="btn-continue" type="button">Continue</button>
+    </section>
+
+    <!-- DIALOGUE -->
+    <section class="stage stage--hidden" id="stage-dialogue" data-stage="dialogue">
+      <header class="hud">
+        <span class="hud-tag" id="dialogue-channel">UPLINK · MAX</span>
+        <span class="hud-tag" id="player-chip">OPERATIVE: —</span>
+      </header>
+      <div class="speaker" id="dialogue-speaker">Max</div>
+      <div class="dialogue-box">
+        <p class="dialogue-text" id="dialogue-text"></p>
+      </div>
+      <button class="primary-btn" id="btn-next-line" type="button">…</button>
+      <button class="terminate-btn stage--hidden" id="btn-terminate" type="button">终止通讯</button>
+    </section>
+
+    <!-- GAME -->
+    <section class="stage stage--hidden" id="stage-game" data-stage="game">
+      <header class="hud">
+        <span class="hud-tag">DECRYPT SEQUENCE</span>
+        <span class="hud-tag hud-tag--rate" id="rate-display">Rescue Chance 63%</span>
+      </header>
+
+      <div class="code-track" id="code-track" aria-label="Code progress"></div>
+
+      <div class="round-meta">
+        <p class="round-hint">Select the correct digit · Position <span id="digit-pos">1</span> / 7</p>
+        <div class="timer-wrap">
+          <div class="timer-bar" id="timer-bar"></div>
+          <span class="timer-num" id="timer-num">2.0</span>
+        </div>
+      </div>
+
+      <div class="keypad" id="keypad" role="group" aria-label="Digit keypad"></div>
+      <p class="feedback" id="feedback" aria-live="polite"></p>
+    </section>
+
+    <!-- COUNTDOWN -->
+    <section class="stage stage--hidden" id="stage-countdown" data-stage="countdown">
+      <div class="countdown-wrap" id="countdown-wrap">
+        <p class="countdown-label" id="countdown-label">EXTRACTION WINDOW</p>
+        <div class="countdown-num" id="countdown-num">00:05</div>
+        <p class="countdown-sub" id="countdown-sub">HOLD THE LINE</p>
+      </div>
+    </section>
+
+    <!-- BLACKOUT -->
+    <section class="stage stage--hidden stage--blackout" id="stage-blackout" data-stage="blackout">
+      <p class="blackout-msg" id="blackout-msg">CONNECTION LOST.</p>
+    </section>
+
+    <!-- FINAL -->
+    <section class="stage stage--hidden" id="stage-final" data-stage="final">
+      <div class="final-screen" id="final-content"></div>
+      <button class="primary-btn stage--hidden" id="btn-replay" type="button">Re-establish Link</button>
+    </section>
+  </main>
+
+  <script src="game.js"></script>
+</body>
+</html>
